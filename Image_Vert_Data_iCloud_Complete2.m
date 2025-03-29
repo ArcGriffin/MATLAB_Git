@@ -1,5 +1,5 @@
 NumDrops = 20;
-%This is a push
+%This is a push. We are going to try and revise.
 C = cell(1,NumDrops);
 for k = 1:NumDrops
     C{k} = k;
