@@ -1,4 +1,4 @@
-NumDrops = 120;
+NumDrops = 20;
 
 C = cell(1,NumDrops);
 for k = 1:NumDrops
