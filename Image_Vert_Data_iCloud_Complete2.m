@@ -8,6 +8,11 @@ end
 datastore='Interp7';
 Fig_Ims='Figures_and_Images_V10';
 
+Fpath2=["/Users/graesongriffin/Library/Mobile Documents/com~apple~CloudDocs/Chondrule/Exp2/" 
+    "/Users/graesongriffin/Library/Mobile Documents/com~apple~CloudDocs/Chondrule/Exp2Rec/" 
+    "/Users/graesongriffin/Library/Mobile Documents/com~apple~CloudDocs/Chondrule/Exp2Rec2/"];
+
+
 Fpath=["/Users/graesongriffin/Library/Mobile Documents/com~apple~CloudDocs/Chondrule/Exp2/" 
     "/Users/graesongriffin/Library/Mobile Documents/com~apple~CloudDocs/Chondrule/Exp2Rec/" 
     "/Users/graesongriffin/Library/Mobile Documents/com~apple~CloudDocs/Chondrule/Exp2Rec2/"];
@@ -134,33 +139,10 @@ tv_sub_full=uint8(tv_sub_full)*255;
 % figure ('Name','tv_Evalsub_full')
 % imshow(tv_sub_full)
 
-
-%% SAVE FIGURES
-save1=regexprep(join([dirFigs slh objectName slh sprintf(['tv_Eval_full_' objectName '.mat'])])," ","");
-save(regexprep(save1,"Mobile","Mobile "),'tv_full')
-
-save2=regexprep(join([dirFigs slh objectName slh sprintf(['tv_Evalsub_full_' objectName '.mat'])])," ","");
-save(regexprep(save2,"Mobile","Mobile "),'tv_sub_full')
-
-
-% figs = findall(groot,'Type','figure');
-% for i = 1:numel(figs)
-%     name = sprintf([objectName '_%03d'...
-%                     lower(replace(figs(i).Name,' ','_')) imgFormat],i);
-%     save3=regexprep(join([dirFigs slh objectName slh sprintf(name)])," ","");
-% 
-%     imwrite(getframe(figs(i)).cdata,regexprep(save3,"Mobile","Mobile "))
-% end
-% 
-% 
-% close all
-
 end
 
 rootdir3 = regexprep(regexprep(join([rootdir 'drop*/' Fig_Ims])," ",""),"Mobile", "Mobile ");
 
-fudge=2048;
-maxmap1=1.60179406882213;
 
 %get list of files and folders in any subfolder
 filelist = dir(fullfile(rootdir3, '**/tv_Eval_full*.mat'));  
