@@ -1,9 +1,11 @@
-NumDrops = 20;
+NumDrops = 120;
 %This is a push. We are going to try and revise.
 C = cell(1,NumDrops);
 for k = 1:NumDrops
     C{k} = k;
 end
+
+datastore='Comb4and10_Figs';
 
 Fpath=["/Users/graesongriffin/Library/Mobile Documents/com~apple~CloudDocs/Chondrule/Exp2/" 
     "/Users/graesongriffin/Library/Mobile Documents/com~apple~CloudDocs/Chondrule/Exp2Rec/" 
@@ -67,8 +69,8 @@ for k=1:120
 a = num2str(C{k});
 
 Numm=k
-dirMainfold=regexprep(join([rootdir, 'Drop'])," ","");
-dirMain = [dirMainfold,a];
+dirMainfold=regexprep(join(rootdir)," ","");
+dirMain = [dirMainfold '/' 'Comb4and10_Figs'];
 objectName = ['Comb4and10_Figs_num',a];
 imgFormat = '.png';
 os = 'macos';
@@ -83,7 +85,7 @@ end
 
 
 % CREATE DIRECTORIES TO STORE FIGURES AND VIDEOS
-dirFigs1 = regexprep(join([dirMain slh Fig_Ims])," ","");
+dirFigs1 = regexprep(join([dirMain])," ","");
 dirFigs=regexprep(dirFigs1,"Mobile","Mobile ");
 mkdir(dirFigs,objectName)
 
@@ -108,6 +110,9 @@ tv_vid_DilF=uint8(tv_vid_Dil)*255;
 
 tv2=tv_vid2-imcomplement(tv_vid_DilF);
 
+%% SAVE FIGURES
+save1=regexprep(join([dirFigs slh objectName slh sprintf(['tv_Filt_' objectName '.mat'])])," ","");
+save(regexprep(save1,"Mobile","Mobile "),'tv2')
 
 
 end
