@@ -5,8 +5,6 @@ for k = 1:NumDrops
     C{k} = k;
 end
 
-
-
 Fpath=["/Users/graesongriffin/Library/Mobile Documents/com~apple~CloudDocs/Chondrule/Exp2/" 
     "/Users/graesongriffin/Library/Mobile Documents/com~apple~CloudDocs/Chondrule/Exp2Rec/" 
     "/Users/graesongriffin/Library/Mobile Documents/com~apple~CloudDocs/Chondrule/Exp2Rec2/"];
@@ -58,39 +56,9 @@ File= {filelist3.folder};
 fold= natsortfiles(string(File));
 
 Fun2 = {filelist2.name};
-str2 = natsortfiles(string(Fun));
-File2= {filelist2.folder};
-fold2= natsortfiles(string(File));
-%%
-
-rootdir3 = regexprep(regexprep(join([rootdir 'drop*/' Fig_Ims])," ",""),"Mobile", "Mobile ");
-
-
-%get list of files and folders in any subfolder
-filelist = dir(fullfile(rootdir3, '**/tv_Eval_full*.mat'));  
-
-%remove folders from list
-filelist = filelist(~[filelist.isdir]);  
-
-%get list of files and folders in any subfolder
-filelist2 = dir(fullfile(rootdir3, '**/tv_Evalsub*.mat'));  
-        
-%remove folders from list
-filelist2 = filelist2(~[filelist2.isdir]);  
-       
-
-Fun = {filelist.name};
-str = natsortfiles(string(Fun));
-
-FileFun = {filelist.folder};
-File_str = natsortfiles(string(FileFun));
-
-Fun2 = {filelist2.name};
 str2 = natsortfiles(string(Fun2));
-
-FileFun2 = {filelist2.folder};
-File_str2 = natsortfiles(string(FileFun2));   
-
+File2= {filelist2.folder};
+fold2= natsortfiles(string(File2));
 
 %% PARAMETERS
 
@@ -101,7 +69,7 @@ a = num2str(C{k});
 Numm=k
 dirMainfold=regexprep(join([rootdir, 'Drop'])," ","");
 dirMain = [dirMainfold,a];
-objectName = ['Figs_num_V',a];
+objectName = ['Comb4and10_Figs_num',a];
 imgFormat = '.png';
 os = 'macos';
 figVisibility = true;
@@ -121,54 +89,29 @@ mkdir(dirFigs,objectName)
 
 %% READ VIDEOS 
 
+filetemp=regexprep(join([fold(k), '/', str(k)])," ","");
+filetemp2=regexprep(join([fold2(k), '/', str2(k)])," ","");
+
+tv_vid=load(regexprep(filetemp,"Mobile","Mobile "));
+tv_vid2=load(regexprep(filetemp2,"Mobile","Mobile "));
+
+
+tv_vid=tv_vid.tv_full;
+tv_vid2=tv_vid2.tv_full;
+
+%%
+
+% Noise Sub W/ Dil Images
+se=strel('disk',7);
+tv_vid_Dil=logical(imdilate(tv_vid,se));
+tv_vid_DilF=uint8(tv_vid_Dil)*255;
+
+tv2=tv_vid2-imcomplement(tv_vid_DilF);
+
+
+
 end
 
-rootdir3 = regexprep(regexprep(join([rootdir 'drop*/' Fig_Ims])," ",""),"Mobile", "Mobile ");
-
-
-%get list of files and folders in any subfolder
-filelist = dir(fullfile(rootdir3, '**/tv_Eval_full*.mat'));  
-
-%remove folders from list
-filelist = filelist(~[filelist.isdir]);  
-
-%get list of files and folders in any subfolder
-filelist2 = dir(fullfile(rootdir3, '**/tv_Evalsub*.mat'));  
-        
-%remove folders from list
-filelist2 = filelist2(~[filelist2.isdir]);  
-       
-
-Fun = {filelist.name};
-str = natsortfiles(string(Fun));
-
-FileFun = {filelist.folder};
-File_str = natsortfiles(string(FileFun));
-
-Fun2 = {filelist2.name};
-str2 = natsortfiles(string(Fun2));
-
-FileFun2 = {filelist2.folder};
-File_str2 = natsortfiles(string(FileFun2));   
-
-levels=120;
-
-Irec2 = zeros(2048, 2048);
-
-    %Rescale your matrix in 0-255 range
-    Irec2 = rescale(Irec2, 0, 255);
-    % Typecasted to uint8 
-    Irec2 = uint8(Irec2); 
-    % Display your image
-
-    % Reset----------------------------------------------------------------
-Irec3 = zeros(2048, 2048);
-
-    %Rescale your matrix in 0-255 range
-    Irec3 = rescale(Irec3, 0, 255);
-    % Typecasted to uint8 
-    Irec3 = uint8(Irec3); 
-    % Display your image
 
 if qq<3
 %% --------------------------------------------------------------------------
