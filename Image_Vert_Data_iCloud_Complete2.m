@@ -5,12 +5,6 @@ for k = 1:NumDrops
     C{k} = k;
 end
 
-datastore='Interp7';
-Fig_Ims='Figures_and_Images_V10';
-
-Fpath2=["/Users/graesongriffin/Library/Mobile Documents/com~apple~CloudDocs/Chondrule/Exp2/" 
-    "/Users/graesongriffin/Library/Mobile Documents/com~apple~CloudDocs/Chondrule/Exp2Rec/" 
-    "/Users/graesongriffin/Library/Mobile Documents/com~apple~CloudDocs/Chondrule/Exp2Rec2/"];
 
 
 Fpath=["/Users/graesongriffin/Library/Mobile Documents/com~apple~CloudDocs/Chondrule/Exp2/" 
@@ -24,9 +18,13 @@ runNum=qq
 PH=zeros(15,1);
 
 rootdir = Fpath(qq);
-filelist3 = dir(fullfile(rootdir, 'Drop*/*_Top_V*.avi'));  %get list of files and folders in any subfolder
+filelist3 = dir(fullfile(rootdir, 'Drop*/Figures_and_Images_V4/**/tv_Eval_full*.mat'));  %get list of files and folders in any subfolder
 filelist3 = filelist3(~[filelist3.isdir]);  %remove folders from list
 numfiles=size(filelist3,1);
+
+filelist2 = dir(fullfile(rootdir, 'Drop*/Figures_and_Images_V10/**/tv_Eval_full*.mat'));  %get list of files and folders in any subfolder
+filelist2 = filelist2(~[filelist2.isdir]);  %remove folders from list
+numfiles2=size(filelist2,1);
 
 kk=0;
 
@@ -41,10 +39,58 @@ for k = 1 :  numfiles-kk
     end 
 end
 
+kk=0;
+
+for k = 1 :  numfiles2-kk
+    thisFileName = filelist2(k-kk); % Get the full or base file name somehow.
+    if startsWith(thisFileName.name, '._')
+        % Skip this file if it starts with dot underline
+    %goof(k,1)=1;
+    filelist2(k-kk)=[];
+    kk=kk+1;
+    continue; % Jump to the bottom of the loop
+    end 
+end
+
 Fun = {filelist3.name};
 str = natsortfiles(string(Fun));
 File= {filelist3.folder};
 fold= natsortfiles(string(File));
+
+Fun2 = {filelist2.name};
+str2 = natsortfiles(string(Fun));
+File2= {filelist2.folder};
+fold2= natsortfiles(string(File));
+%%
+
+rootdir3 = regexprep(regexprep(join([rootdir 'drop*/' Fig_Ims])," ",""),"Mobile", "Mobile ");
+
+
+%get list of files and folders in any subfolder
+filelist = dir(fullfile(rootdir3, '**/tv_Eval_full*.mat'));  
+
+%remove folders from list
+filelist = filelist(~[filelist.isdir]);  
+
+%get list of files and folders in any subfolder
+filelist2 = dir(fullfile(rootdir3, '**/tv_Evalsub*.mat'));  
+        
+%remove folders from list
+filelist2 = filelist2(~[filelist2.isdir]);  
+       
+
+Fun = {filelist.name};
+str = natsortfiles(string(Fun));
+
+FileFun = {filelist.folder};
+File_str = natsortfiles(string(FileFun));
+
+Fun2 = {filelist2.name};
+str2 = natsortfiles(string(Fun2));
+
+FileFun2 = {filelist2.folder};
+File_str2 = natsortfiles(string(FileFun2));   
+
 
 %% PARAMETERS
 
@@ -74,70 +120,6 @@ dirFigs=regexprep(dirFigs1,"Mobile","Mobile ");
 mkdir(dirFigs,objectName)
 
 %% READ VIDEOS 
-
-
-% Top View ---------------------------------------------------------------%
-subimfold = regexprep(join([rootdir 'SubIm2.jpg'])," ","");
-subim=imread(regexprep(subimfold,"Mobile","Mobile "));
-
-%subimfold
-%subim=imread('/Volumes/GraesonEXP2/Chondrule/Exp2Rec2/SubIm2.jpg');
-%subim=im2uint8(mat2gray(imbinarize(subim,0.05)));
-subim=im2uint8(mat2gray(subim));
-
-filetemp=regexprep(join([fold(k), '/', str(k)])," ","");
-
-tv_vid2=extract_frames2(regexprep(filetemp,"Mobile","Mobile "));
-
-%tv_vid2 = extract_frames2(regexprep(join([dirMain, '/', str(k)])," ",""));
-f1_tv=max(tv_vid2.NumFrames);
-%tv_vid=tv_vid.Frames/155;
-tv_vid=tv_vid2.Frames;
-tv_vid1=tv_vid/155;
-tv_vid2=tv_vid/145;
-
-tv_data1 = imsAdd(tv_vid1(:,:,1:f1_tv),'plain');
-tv_data2 = imsAdd(tv_vid2(:,:,1:f1_tv),'plain');
-
-tv_full_Or=logical(tv_data1)-logical(subim);
-tv_full_Or1=max(tv_full_Or,0);
-
-tv_full_Or=logical(tv_data2)-logical(subim);
-tv_full_Or2=max(tv_full_Or,0);
-
-%%
-
-% Noise Sub W/ Dil Images
-se=strel('disk',0);
-tv_full1=logical(imerode(tv_full_Or1,se));
-tv_full1=uint8(tv_full1)*255;
-
-% Noise Sub W/ Dil Images
-se=strel('disk',0);
-tv_full2=logical(imdilate(tv_full_Or2,se));
-tv_full2=uint8(tv_full2)*255;
-
-se=strel("disk",3);
-tv_sub=logical(imdilate(tv_full_Or1,se));
-tv_sub=uint8(tv_sub)*255;
-
-tv2=tv_full2-tv_sub;
-tv_full=tv2+tv_full1;
-
-se=strel("disk",2);
-tv_sub_full=logical(imdilate(tv_full,se));
-tv_sub_full=uint8(tv_sub_full)*255;
-
-
-% ESTIMATION OF THE DEPTH-------------------------------------------------%
-% Estimation of the depth in frames from TV
-
-
-% figure ('Name','tv_Eval_full')
-% imshow(tv_full)
-% 
-% figure ('Name','tv_Evalsub_full')
-% imshow(tv_sub_full)
 
 end
 
