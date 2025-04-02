@@ -122,7 +122,7 @@ rootdir3 = regexprep(regexprep(join(dirMain)," ",""),"Mobile", "Mobile ");
 
 
 %get list of files and folders in any subfolder
-filelist4 = dir(fullfile(join(rootdir3, '**/tv_Filt_Comb4and10_Figs_num*.mat')));  
+filelist4 = dir(fullfile(regexprep(join([rootdir3, '/**/tv_Filt_Comb4and10_Figs_num*.mat'])," ","")));  
 filelist4 = filelist4(~[filelist4.isdir]);
 numfiles4=size(filelist4,1);
 
@@ -140,11 +140,11 @@ for k = 1 :  numfiles-kk
 end
        
 
-Fun = {filelist.name};
-str = natsortfiles(string(Fun));
+Fun3 = {filelist4.name};
+str3 = natsortfiles(string(Fun3));
 
-FileFun = {filelist.folder};
-File_str = natsortfiles(string(FileFun));
+FileFun3 = {filelist4.folder};
+File_str3 = natsortfiles(string(FileFun3));
 
 levels=120;
 
@@ -240,8 +240,8 @@ if qq<3
             slh = '/';
         end
     
-        I2=matfile(regexprep(regexprep(join([File(k), '/', str(k)])," ",""),"Mobile","Mobile "));
-        I2=I2.tv_full;
+        I2=matfile(regexprep(regexprep(join([File_str3(k), '/', str3(k)])," ",""),"Mobile","Mobile "));
+        I2=I2.tv2;
     
       % Rescale your matrix in 0-255 range
         I2 = rescale(I2, 0, 255);
@@ -351,15 +351,8 @@ if qq<3
             hist=histogram(F2,edges);
             spectrum2(:,k)=hist.Values';
         end
-
-
-
-
-    
     
         close all
-       
-    
         
     end
     
@@ -436,8 +429,8 @@ else
             slh = '/';
         end
     
-        I2=matfile(regexprep(regexprep(join([File_str(k), '/', str(k)])," ",""),"Mobile","Mobile "));
-        I2=I2.tv_full;
+        I2=matfile(regexprep(regexprep(join([File_str3(k), '/', str3(k)])," ",""),"Mobile","Mobile "));
+        I2=I2.tv2;
     
       % Rescale your matrix in 0-255 range
         I2 = rescale(I2, 0, 255);
