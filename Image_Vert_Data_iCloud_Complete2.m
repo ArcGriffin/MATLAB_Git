@@ -70,9 +70,8 @@ mkdir(dirFigs,objectName)
 
 %% READ VIDEOS 
 
-
 % Top View ---------------------------------------------------------------%
-subimfold = regexprep(join([rootdir 'SubIm2.jpg'])," ","");
+subimfold = regexprep(join([rootdir 'SubIm3.png'])," ","");
 subim=imread(regexprep(subimfold,"Mobile","Mobile "));
 
 %subimfold
@@ -127,13 +126,11 @@ tv_sub_full=uint8(tv_sub_full)*255;
 % ESTIMATION OF THE DEPTH-------------------------------------------------%
 % Estimation of the depth in frames from TV
 
-
 % figure ('Name','tv_Eval_full')
 % imshow(tv_full)
 % 
 % figure ('Name','tv_Evalsub_full')
 % imshow(tv_sub_full)
-
 
 %% SAVE FIGURES
 save1=regexprep(join([dirFigs slh objectName slh sprintf(['tv_Eval_full_' objectName '.mat'])])," ","");
