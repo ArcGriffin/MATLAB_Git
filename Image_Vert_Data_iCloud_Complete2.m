@@ -5,7 +5,9 @@ for k = 1:NumDrops
     C{k} = k;
 end
 
-datastore='Comb4and10_Figs2';
+filt=4;
+
+datastore='Comb4and10_Figs4';
 
 Fpath=["/Users/graesongriffin/Library/Mobile Documents/com~apple~CloudDocs/Chondrule/Exp2/" 
     "/Users/graesongriffin/Library/Mobile Documents/com~apple~CloudDocs/Chondrule/Exp2Rec/" 
@@ -258,7 +260,7 @@ if qq<3
         I2 = uint8(I2); 
     
      
-    %--------------------------------------------------------------------------
+     %--------------------------------------------------------------------------
     % Identify individual blobs by seeing which pixels are connected to each other.  This is called "Connected Components Labeling".
     % Each group of connected pixels will be given a label, a number, to identify it and distinguish it from the other blobs.
     % Do connected components labeling with either bwlabel() or bwconncomp().
@@ -298,6 +300,9 @@ if qq<3
         else
             F2 = zeros(1,numberOfBlobs3);
             for j = 1 : numberOfBlobs3           % Loop through all blobs.
+                if props(j).Area<=filt
+                    continue
+                end
 	        % Find the individual measurements of each blob.  They are field of each structure in the props strucutre array.
 	        % You could use the bracket trick (like with blobECD above) OR you can get the value from the field of this particular structure.
 	        % I'm showing you both ways and you can use the way you like best.
@@ -309,11 +314,11 @@ if qq<3
                 F2(j)=props(j).Area;
     
             end
-                F2(k)=[];
+                F2(F2==0)=[];
+
                 Mean3 = mean(F2);
                 MeanECD3 = mean(blobECD3);
                 Mode3 = mode(F2);
-                Median3 = median(F2);
     end
     %--------------------------------------------------------------------------
     
@@ -496,6 +501,9 @@ else
         else
             F2 = zeros(1,numberOfBlobs3);
             for j = 1 : numberOfBlobs3           % Loop through all blobs.
+                if props(j).Area<=filt
+                    continue
+                end
 	        % Find the individual measurements of each blob.  They are field of each structure in the props strucutre array.
 	        % You could use the bracket trick (like with blobECD above) OR you can get the value from the field of this particular structure.
 	        % I'm showing you both ways and you can use the way you like best.
@@ -507,13 +515,13 @@ else
                 F2(j)=props(j).Area;
     
             end
-                F2(k)=[];
+                F2(F2==0)=[];
+
                 Mean3 = mean(F2);
                 MeanECD3 = mean(blobECD3);
                 Mode3 = mode(F2);
-                Median3=median(F2);
     end
-    %-------------------------------------------------------------------------
+    %--------------------------------------------------------------------------
     
     PH(kkg,1) = kkg;
     PH(kkg,2) = 0;%a
