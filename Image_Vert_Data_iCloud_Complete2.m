@@ -5,7 +5,7 @@ for k = 1:NumDrops
     C{k} = k;
 end
 
-datastore='Comb4and10_Figs';
+datastore='Comb4and10_Figs2';
 
 Fpath=["/Users/graesongriffin/Library/Mobile Documents/com~apple~CloudDocs/Chondrule/Exp2/" 
     "/Users/graesongriffin/Library/Mobile Documents/com~apple~CloudDocs/Chondrule/Exp2Rec/" 
@@ -70,7 +70,7 @@ a = num2str(C{k});
 
 Numm=k
 dirMainfold=regexprep(join(rootdir)," ","");
-dirMain = [dirMainfold 'Comb4and10_Figs'];
+dirMain = [dirMainfold datastore];
 objectName = ['Comb4and10_Figs_num',a];
 imgFormat = '.png';
 os = 'macos';
@@ -117,6 +117,7 @@ tv_vid_Dil=logical(imdilate(tv_vid,se));
 tv_vid_DilF=uint8(tv_vid_Dil)*255;
 
 tv2=tv_vid2-imcomplement(tv_vid_DilF);
+tv2=tv2-subim;
 
 %% SAVE FIGURES
 save1=regexprep(join([dirFigs slh objectName slh sprintf(['tv_Filt_' objectName '.mat'])])," ","");
