@@ -97,6 +97,14 @@ filetemp2=regexprep(join([fold2(k), '/', str2(k)])," ","");
 tv_vid=load(regexprep(filetemp,"Mobile","Mobile "));
 tv_vid2=load(regexprep(filetemp2,"Mobile","Mobile "));
 
+subimfold = regexprep(join([rootdir 'SubIm3.png'])," ","");
+subim=imread(regexprep(subimfold,"Mobile","Mobile "));
+
+%subimfold
+%subim=imread('/Volumes/GraesonEXP2/Chondrule/Exp2Rec2/SubIm2.jpg');
+%subim=im2uint8(mat2gray(imbinarize(subim,0.05)));
+subim=im2uint8(mat2gray(subim));
+
 
 tv_vid=tv_vid.tv_full;
 tv_vid2=tv_vid2.tv_full;
