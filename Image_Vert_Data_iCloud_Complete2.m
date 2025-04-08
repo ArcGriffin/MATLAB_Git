@@ -7,7 +7,7 @@ end
 
 filt=4;
 
-datastore='Comb4and10_Figs4';
+datastore='Comb4and10_Figs3';
 
 Fpath=["/Users/graesongriffin/Library/Mobile Documents/com~apple~CloudDocs/Chondrule/Exp2/" 
     "/Users/graesongriffin/Library/Mobile Documents/com~apple~CloudDocs/Chondrule/Exp2Rec/" 
@@ -336,7 +336,7 @@ if qq<3
     PH(kkg,7) = 0;%f
     PH(kkg,8) = 0;%g
     PH(kkg,9) = 0;%h
-    PH(kkg,10) = Median3;%i
+    PH(kkg,10) = 0;%i
     PH(kkg,11) = 0;%j
     PH(kkg,12) = 0;%k
     PH(kkg,13) = Mode3;%l
@@ -532,7 +532,7 @@ else
     PH(kkg,7) = 0;%f
     PH(kkg,8) = 0;%g
     PH(kkg,9) = 0;%h
-    PH(kkg,10) = Median3;%i
+    PH(kkg,10) = 0;%i
     PH(kkg,11) = 0;%j
     PH(kkg,12) = 0;%k
     PH(kkg,13) = Mode3;%l
