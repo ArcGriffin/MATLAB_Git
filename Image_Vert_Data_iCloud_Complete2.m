@@ -5,9 +5,9 @@ for k = 1:NumDrops
     C{k} = k;
 end
 
-filt=4;
+filt=9;
 
-datastore='Comb4and10_Figs3';
+datastore='FigsHalf_OG';
 
 Fpath=["/Users/graesongriffin/Library/Mobile Documents/com~apple~CloudDocs/Chondrule/Exp2/" 
     "/Users/graesongriffin/Library/Mobile Documents/com~apple~CloudDocs/Chondrule/Exp2Rec/" 
@@ -118,7 +118,7 @@ se=strel('disk',7);
 tv_vid_Dil=logical(imdilate(tv_vid,se));
 tv_vid_DilF=uint8(tv_vid_Dil)*255;
 
-tv2=tv_vid2-imcomplement(tv_vid_DilF);
+tv2=tv_vid;%-imcomplement(tv_vid_DilF);
 tv2=tv2-subim;
 
 %% SAVE FIGURES
@@ -357,13 +357,13 @@ if qq<3
     PH(kkg,28) = numberOfBlobs3;%bb
     
         if qq==1
-            edges=1:1:200;
-            hist=histogram(F2,edges);
-            spectrum1(:,k)=hist.Values';
+            edges=1:5:200;
+            hist1=histogram(F2,edges,"Normalization","probability");
+            spectrum1(:,k)=hist1.Values';
         else
-            edges=1:1:200;
-            hist=histogram(F2,edges);
-            spectrum2(:,k)=hist.Values';
+            edges=1:5:200;
+            hist2=histogram(F2,edges,"Normalization","probability");
+            spectrum2(:,k)=hist2.Values';
         end
     
         close all
@@ -552,9 +552,9 @@ else
     PH(kkg,27) = MeanECD3;%z
     PH(kkg,28) = numberOfBlobs3;%bb
 
-    edges=1:1:200;
-    hist=histogram(F2,edges);
-    spectrum3(:,k)=hist.Values';
+    edges=1:5:200;
+    hist3=histogram(F2,edges,"Normalization","probability");
+    spectrum3(:,k)=hist3.Values';
 
     %end
     
@@ -581,3 +581,4 @@ end
 
 end
 
+%%
