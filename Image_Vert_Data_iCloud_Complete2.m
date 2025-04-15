@@ -5,9 +5,9 @@ for k = 1:NumDrops
     C{k} = k;
 end
 
-filt=9;
+filt=0;
 
-datastore='FigsHalf_OG';
+datastore='FigsHalf_BGV10';
 
 Fpath=["/Users/graesongriffin/Library/Mobile Documents/com~apple~CloudDocs/Chondrule/Exp2/" 
     "/Users/graesongriffin/Library/Mobile Documents/com~apple~CloudDocs/Chondrule/Exp2Rec/" 
@@ -70,7 +70,7 @@ for k=1:120
 
 a = num2str(C{k});
 
-Numm=k
+Numm=k;
 dirMainfold=regexprep(join(rootdir)," ","");
 dirMain = [dirMainfold datastore];
 objectName = ['Comb4and10_Figs_num',a];
@@ -118,7 +118,7 @@ se=strel('disk',7);
 tv_vid_Dil=logical(imdilate(tv_vid,se));
 tv_vid_DilF=uint8(tv_vid_Dil)*255;
 
-tv2=tv_vid;%-imcomplement(tv_vid_DilF);
+tv2=tv_vid2-tv_vid_DilF;%-imcomplement(tv_vid_DilF);
 tv2=tv2-subim;
 
 %% SAVE FIGURES
@@ -186,7 +186,7 @@ if qq<3
     for k=1:120
     %% -------------------------------------------------------------------------
     
-       kkg=k
+       kkg=k;
         if (1<=kkg)&&(kkg<=20)
             datadrop = [datastore '/surf10.5_Data'];
             elseif (21<=kkg)&&(kkg<=40)
@@ -357,11 +357,11 @@ if qq<3
     PH(kkg,28) = numberOfBlobs3;%bb
     
         if qq==1
-            edges=1:5:200;
+            edges=1:1:200;
             hist1=histogram(F2,edges,"Normalization","probability");
             spectrum1(:,k)=hist1.Values';
         else
-            edges=1:5:200;
+            edges=1:1:200;
             hist2=histogram(F2,edges,"Normalization","probability");
             spectrum2(:,k)=hist2.Values';
         end
@@ -374,19 +374,28 @@ if qq<3
     PH(isinf(PH)|isnan(PH)) = 0;
     
     savefilest=regexprep(regexprep(join([rootdir datastore '/PH2_0Errod_flit.mat'])," ",""),"Mobile", "Mobile ");
-    savefilest2=regexprep(regexprep(join([rootdir datastore '/CompErrod_flit.mat'])," ",""),"Mobile", "Mobile ");
+    %savefilest2=regexprep(regexprep(join([rootdir datastore '/CompErrod_flit.mat'])," ",""),"Mobile", "Mobile ");
     
+    if qq==1
+        savefilest3=regexprep(regexprep(join([rootdir datastore '/Spec1_flit.mat'])," ",""),"Mobile", "Mobile ");
+        save(savefilest3, 'spectrum1');
+    else
+        savefilest3=regexprep(regexprep(join([rootdir datastore '/Spec2_flit.mat'])," ",""),"Mobile", "Mobile ");
+        save(savefilest3, 'spectrum2');
+    
+    end
     %savefile = sprintf([rootdir 'Interp4/PH2_0Errod_flit155.mat']);
     
     save(savefilest, 'PH');
-    save(savefilest2)
+    %save(savefilest2)
+
 
 else
 
     for k=1:120
     %% -------------------------------------------------------------------------
     
-       kkg=k
+       kkg=k;
         if (1<=kkg)&&(kkg<20)
             datadrop = [datastore '/surf15.5_Data'];
             elseif (21<=kkg)&&(kkg<=40)
@@ -552,7 +561,7 @@ else
     PH(kkg,27) = MeanECD3;%z
     PH(kkg,28) = numberOfBlobs3;%bb
 
-    edges=1:5:200;
+    edges=1:1:200;
     hist3=histogram(F2,edges,"Normalization","probability");
     spectrum3(:,k)=hist3.Values';
 
@@ -570,12 +579,15 @@ else
     PH(isinf(PH)|isnan(PH)) = 0;
     
     savefilest=regexprep(regexprep(join([rootdir datastore '/PH2_0Errod_flitRec2.mat'])," ",""),"Mobile", "Mobile ");
-    savefilest2=regexprep(regexprep(join([rootdir datastore '/CompErrod_flit.mat'])," ",""),"Mobile", "Mobile ");
-    
+    %savefilest2=regexprep(regexprep(join([rootdir datastore '/CompErrod_flit.mat'])," ",""),"Mobile", "Mobile ");
+    if qq==3
+    savefilest3=regexprep(regexprep(join([rootdir datastore '/Spec3_flit.mat'])," ",""),"Mobile", "Mobile ");
+    end
     %savefile = sprintf([rootdir 'Interp4/PH2_0Errod_flit155.mat']);
     
     save(savefilest, 'PH');
-    save(savefilest2);
+    %save(savefilest2);
+    save(savefilest3,"spectrum3");
 
 end
 
