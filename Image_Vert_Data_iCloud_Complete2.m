@@ -7,7 +7,7 @@ end
 
 filt=9;
 
-datastore='FigsHalf_PartCount_V10_5';
+datastore='FigsHalf_PartCount_V11_1';
 
 Fpath=["/Users/graesongriffin/Library/Mobile Documents/com~apple~CloudDocs/Chondrule/Exp2/" 
     "/Users/graesongriffin/Library/Mobile Documents/com~apple~CloudDocs/Chondrule/Exp2Rec/" 
@@ -27,7 +27,7 @@ filelist3 = dir(fullfile(rootdir, 'Drop*/Figures_and_Images_V4/**/tv_Eval_full*.
 filelist3 = filelist3(~[filelist3.isdir]);  %remove folders from list
 numfiles=size(filelist3,1);
 
-filelist2 = dir(fullfile(rootdir, 'Drop*/Figures_and_Images_V10/**/tv_Eval_full*.mat'));  %get list of files and folders in any subfolder
+filelist2 = dir(fullfile(rootdir, 'Drop*/Figures_and_Images_V11/**/tv_Eval_full*.mat'));  %get list of files and folders in any subfolder
 filelist2 = filelist2(~[filelist2.isdir]);  %remove folders from list
 numfiles2=size(filelist2,1);
 
@@ -121,7 +121,7 @@ se=strel('disk',7);
 tv_vid_Dil=logical(imdilate(tv_vid,se));
 tv_vid_DilF=uint8(tv_vid_Dil)*255;
 
-tv2=tv_vid2-imcomplement(tv_vid_DilF);
+tv2=tv_vid2;%-imcomplement(tv_vid_DilF);
 tv2=tv2-subim;
 
 %% SAVE FIGURES
@@ -322,7 +322,7 @@ if qq<3
                 Area2=F2*13.46*13.46;
                 ra2=((Area2)/pi).^(1/2);
                 AreaSP2=(4/3)*pi*(ra2).^3;
-                F2_2=(AreaSP2*VolFrac)./AreaPA;
+                F2_2=round((AreaSP2*VolFrac)./AreaPA);
 
                 Mean3 = mean(F2);
                 MeanECD3 = mean(blobECD3);
@@ -330,7 +330,7 @@ if qq<3
                 Area=Mean3*13.46*13.46;
                 ra=((Area)/pi)^(1/2);
                 AreaSP=(4/3)*pi*(ra)^3;
-                numerry=(AreaSP*VolFrac)/AreaPA;
+                numerry=round((AreaSP*VolFrac)/AreaPA);
     end
     %--------------------------------------------------------------------------
     
@@ -541,7 +541,7 @@ else
                 Area2=F2*13.46*13.46;
                 ra2=((Area2)/pi).^(1/2);
                 AreaSP2=(4/3)*pi*(ra2).^3;
-                F2_2=(AreaSP2*VolFrac)./AreaPA;
+                F2_2=round((AreaSP2*VolFrac)./AreaPA);
 
                 Mean3 = mean(F2);
                 MeanECD3 = mean(blobECD3);
@@ -550,7 +550,7 @@ else
                 Area=Mean3*13.46*13.46;
                 ra=((Area)/pi)^(1/2);
                 AreaSP=(4/3)*pi*(ra)^3;
-                numerry=(AreaSP*VolFrac)/AreaPA;
+                numerry=round((AreaSP*VolFrac)/AreaPA);
     end
     %--------------------------------------------------------------------------
     
