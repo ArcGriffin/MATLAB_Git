@@ -5,9 +5,9 @@ for k = 1:NumDrops
     C{k} = k;
 end
 
-filt=9;
+filt=17;
 
-datastore='FigsHalf_PartCount_V11_1';
+datastore='FigsHalf_PartCount_BGV11_6';
 
 Fpath=["/Users/graesongriffin/Library/Mobile Documents/com~apple~CloudDocs/Chondrule/Exp2/" 
     "/Users/graesongriffin/Library/Mobile Documents/com~apple~CloudDocs/Chondrule/Exp2Rec/" 
@@ -305,21 +305,24 @@ if qq<3
             for j = 1 : numberOfBlobs3           % Loop through all blobs.
                 if props(j).Area<=filt
                     continue
-                end
-	        % Find the individual measurements of each blob.  They are field of each structure in the props strucutre array.
-	        % You could use the bracket trick (like with blobECD above) OR you can get the value from the field of this particular structure.
-	        % I'm showing you both ways and you can use the way you like best.
-	             meanGL = props(j).MeanIntensity;		% Get average intensity.
+                    
+                else
+                     meanGL = props(j).MeanIntensity;		% Get average intensity.
 	            blobArea = props(j).Area;				% Get area.
 	            blobPerimeter = props(j).Perimeter;		% Get perimeter.
 	            blobCentroid = props(j).Centroid;       % Get centroid one at a time
     
                 F2(j)=props(j).Area;
     
+                end
+	        % Find the individual measurements of each blob.  They are field of each structure in the props strucutre array.
+	        % You could use the bracket trick (like with blobECD above) OR you can get the value from the field of this particular structure.
+	        % I'm showing you both ways and you can use the way you like best.
+	            
             end
                 F2(F2==0)=[];
 
-                Area2=F2*13.46*13.46;
+                Area2=F2*12.5*12.5;
                 ra2=((Area2)/pi).^(1/2);
                 AreaSP2=(4/3)*pi*(ra2).^3;
                 F2_2=round((AreaSP2*VolFrac)./AreaPA);
@@ -327,7 +330,7 @@ if qq<3
                 Mean3 = mean(F2);
                 MeanECD3 = mean(blobECD3);
                 Mode3 = mode(F2);
-                Area=Mean3*13.46*13.46;
+                Area=Mean3*12.5*12.5;
                 ra=((Area)/pi)^(1/2);
                 AreaSP=(4/3)*pi*(ra)^3;
                 numerry=round((AreaSP*VolFrac)/AreaPA);
@@ -369,11 +372,11 @@ if qq<3
     PH(kkg,28) = numberOfBlobs3;%bb
     
         if qq==1
-            edges=1:1:200;
+            edges=1:5:200;
             hist1=histogram(F2_2,edges);
             spectrum1(:,k)=hist1.Values';
         else
-            edges=1:1:200;
+            edges=1:5:200;
             hist2=histogram(F2_2,edges);
             spectrum2(:,k)=hist2.Values';
         end
@@ -522,23 +525,26 @@ else
         else
             F2 = zeros(1,numberOfBlobs3);
             for j = 1 : numberOfBlobs3           % Loop through all blobs.
-                if props(j).Area<=filt
+               if props(j).Area<=filt
                     continue
-                end
-	        % Find the individual measurements of each blob.  They are field of each structure in the props strucutre array.
-	        % You could use the bracket trick (like with blobECD above) OR you can get the value from the field of this particular structure.
-	        % I'm showing you both ways and you can use the way you like best.
-	             meanGL = props(j).MeanIntensity;		% Get average intensity.
+                    
+                else
+                     meanGL = props(j).MeanIntensity;		% Get average intensity.
 	            blobArea = props(j).Area;				% Get area.
 	            blobPerimeter = props(j).Perimeter;		% Get perimeter.
 	            blobCentroid = props(j).Centroid;       % Get centroid one at a time
     
                 F2(j)=props(j).Area;
     
+                end
+	        % Find the individual measurements of each blob.  They are field of each structure in the props strucutre array.
+	        % You could use the bracket trick (like with blobECD above) OR you can get the value from the field of this particular structure.
+	        % I'm showing you both ways and you can use the way you like best.
+	          
             end
                 F2(F2==0)=[];
 
-                Area2=F2*13.46*13.46;
+                Area2=F2*12.5*12.5;
                 ra2=((Area2)/pi).^(1/2);
                 AreaSP2=(4/3)*pi*(ra2).^3;
                 F2_2=round((AreaSP2*VolFrac)./AreaPA);
@@ -547,7 +553,7 @@ else
                 MeanECD3 = mean(blobECD3);
                 Mode3 = mode(F2);
 
-                Area=Mean3*13.46*13.46;
+                Area=Mean3*12.5*12.5;
                 ra=((Area)/pi)^(1/2);
                 AreaSP=(4/3)*pi*(ra)^3;
                 numerry=round((AreaSP*VolFrac)/AreaPA);
@@ -583,7 +589,7 @@ else
     PH(kkg,27) = MeanECD3;%z
     PH(kkg,28) = numberOfBlobs3;%bb
 
-    edges=1:1:200;
+    edges=1:5:200;
     hist3=histogram(F2_2,edges);
     spectrum3(:,k)=hist3.Values';
 
