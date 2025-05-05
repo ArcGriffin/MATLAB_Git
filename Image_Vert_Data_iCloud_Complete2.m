@@ -5,9 +5,9 @@ for k = 1:NumDrops
     C{k} = k;
 end
 
-filt=17;
+filt=0;
 
-datastore='FigsHalf_PartCount_BGV11_6';
+datastore='FigsHalf_PartCount_V14_HalfSphere_1';
 
 Fpath=["/Users/graesongriffin/Library/Mobile Documents/com~apple~CloudDocs/Chondrule/Exp2/" 
     "/Users/graesongriffin/Library/Mobile Documents/com~apple~CloudDocs/Chondrule/Exp2Rec/" 
@@ -27,7 +27,7 @@ filelist3 = dir(fullfile(rootdir, 'Drop*/Figures_and_Images_V4/**/tv_Eval_full*.
 filelist3 = filelist3(~[filelist3.isdir]);  %remove folders from list
 numfiles=size(filelist3,1);
 
-filelist2 = dir(fullfile(rootdir, 'Drop*/Figures_and_Images_V11/**/tv_Eval_full*.mat'));  %get list of files and folders in any subfolder
+filelist2 = dir(fullfile(rootdir, 'Drop*/Figures_and_Images_V13/**/tv_Eval_full*.mat'));  %get list of files and folders in any subfolder
 filelist2 = filelist2(~[filelist2.isdir]);  %remove folders from list
 numfiles2=size(filelist2,1);
 
@@ -325,7 +325,7 @@ if qq<3
                 Area2=F2*12.5*12.5;
                 ra2=((Area2)/pi).^(1/2);
                 AreaSP2=(4/3)*pi*(ra2).^3;
-                F2_2=round((AreaSP2*VolFrac)./AreaPA);
+                F2_2=round((AreaSP2*0.5*VolFrac)./AreaPA);
 
                 Mean3 = mean(F2);
                 MeanECD3 = mean(blobECD3);
@@ -333,7 +333,7 @@ if qq<3
                 Area=Mean3*12.5*12.5;
                 ra=((Area)/pi)^(1/2);
                 AreaSP=(4/3)*pi*(ra)^3;
-                numerry=round((AreaSP*VolFrac)/AreaPA);
+                numerry=round((AreaSP*0.5*VolFrac)/AreaPA);
     end
     %--------------------------------------------------------------------------
     
@@ -372,11 +372,11 @@ if qq<3
     PH(kkg,28) = numberOfBlobs3;%bb
     
         if qq==1
-            edges=1:5:200;
+            edges=1:2:100;
             hist1=histogram(F2_2,edges);
             spectrum1(:,k)=hist1.Values';
         else
-            edges=1:5:200;
+            edges=1:2:100;
             hist2=histogram(F2_2,edges);
             spectrum2(:,k)=hist2.Values';
         end
@@ -547,7 +547,7 @@ else
                 Area2=F2*12.5*12.5;
                 ra2=((Area2)/pi).^(1/2);
                 AreaSP2=(4/3)*pi*(ra2).^3;
-                F2_2=round((AreaSP2*VolFrac)./AreaPA);
+                F2_2=round((AreaSP2*0.5*VolFrac)./AreaPA);
 
                 Mean3 = mean(F2);
                 MeanECD3 = mean(blobECD3);
@@ -556,7 +556,7 @@ else
                 Area=Mean3*12.5*12.5;
                 ra=((Area)/pi)^(1/2);
                 AreaSP=(4/3)*pi*(ra)^3;
-                numerry=round((AreaSP*VolFrac)/AreaPA);
+                numerry=round((AreaSP*0.5*VolFrac)/AreaPA);
     end
     %--------------------------------------------------------------------------
     
@@ -589,7 +589,7 @@ else
     PH(kkg,27) = MeanECD3;%z
     PH(kkg,28) = numberOfBlobs3;%bb
 
-    edges=1:5:200;
+    edges=1:2:100;
     hist3=histogram(F2_2,edges);
     spectrum3(:,k)=hist3.Values';
 
