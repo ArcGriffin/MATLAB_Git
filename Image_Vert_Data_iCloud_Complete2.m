@@ -322,18 +322,14 @@ if qq<3
             end
                 F2(F2==0)=[];
 
-                Area2=F2*12.5*12.5;
-                ra2=((Area2)/pi).^(1/2);
-                AreaSP2=(4/3)*pi*(ra2).^3;
-                F2_2=round((AreaSP2*VolFrac)./AreaPA);
+               
+                F2_2=F2;
 
                 Mean3 = mean(F2);
                 MeanECD3 = mean(blobECD3);
                 Mode3 = mode(F2);
-                Area=Mean3*12.5*12.5;
-                ra=((Area)/pi)^(1/2);
-                AreaSP=(4/3)*pi*(ra)^3;
-                numerry=round((AreaSP*VolFrac)/AreaPA);
+               
+                numerry=Mean3;
     end
     %--------------------------------------------------------------------------
     
